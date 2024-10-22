@@ -21,7 +21,7 @@ class AuthStore {
 
   saveToken = async (appState) => {
     try {
-      const encryptedState = cryptoJS.AES.encrypt(JSON.stringify(appState), "stock").toString();
+      const encryptedState = cryptoJS.AES.encrypt(JSON.stringify(appState), "gallery").toString();
       await AsyncStorage.setItem("appState", encryptedState);
       this.appState = appState;
     } catch (e) {
@@ -34,7 +34,7 @@ class AuthStore {
       const appStateData = await AsyncStorage.getItem("appState");
 
       if (appStateData) {
-        const bytes = cryptoJS.AES.decrypt(appStateData, "stock");
+        const bytes = cryptoJS.AES.decrypt(appStateData, "gallery");
         const originalText = bytes.toString(cryptoJS.enc.Utf8);
         this.appState = JSON.parse(originalText);
       } else {
